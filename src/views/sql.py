@@ -1,9 +1,9 @@
 import sqlalchemy as sa
-from client.src.views.db import metadata
+from db import metadata
 
 import os
 
-file_name = "../../../base.sqlite"
+file_name = "../views/base.sqlite"
 
 data = "sqlite:///" + file_name
 

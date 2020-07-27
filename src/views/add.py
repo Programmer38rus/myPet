@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from client.src.views.sql import data
+from sql import data
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
