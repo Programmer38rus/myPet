@@ -70,13 +70,14 @@
       </b-button-group>
       </b-form>
     </b-modal>
+
     <!--    Изменение - модальное окно-->
     <b-modal ref="changeMemberModal"
       id="change-member-modal"
       title="Изменить члена семьи"
       hide-footer>
       <b-form @submit="onUpdateMember"
-        @reset2="onResetUpdate"
+        @reset="onResetUpdate"
         class="w-100">
         <b-form-group id="form-member-update-group"
           label="Измените данные"
@@ -96,7 +97,7 @@
         </b-form-group>
         <b-button-group>
           <b-button type="submit" variant="primary">Изменить</b-button>
-          <b-button type="reset2" variant="danger">Сброс</b-button>
+          <b-button type="reset" variant="danger">Сброс</b-button>
         </b-button-group>
 
       </b-form>
@@ -156,13 +157,15 @@ export default {
     },
     onReset(event) {
       event.preventDefault();
-      this.$refs.addMemberFamilyModal.hide();
+      // this.$refs.addMemberFamilyModal.hide();
       this.resetMemberForm();
     },
-    onResetUpdate() {
-      this.updateMember.name = this.saveUpdateMember.name;
-      this.updateMember.age = this.saveUpdateMember.age;
-      console.log(this.saveUpdateMember);
+    onResetUpdate(event) {
+      event.preventDefault();
+      // this.updateMember.name = this.saveUpdateMember.name;
+      // this.updateMember.age = this.saveUpdateMember.age;
+      this.updateMember = this.saveUpdateMember;
+      console.log();
     },
     changeMember(member) {
       this.updateMember = member;
@@ -170,7 +173,7 @@ export default {
     },
     onUpdateMember(event) {
       event.preventDefault();
-      console.log(this.saveUpdateMember);
+      // console.log(this.saveUpdateMember);
     },
     resetMemberForm() {
       this.addFamilyMember.name = '';

@@ -6,11 +6,11 @@ app = bottle.Bottle()
 
 @enable_cors
 @app.route('/')
-def index(): 
-	# bottle.response.headers['Access-Control-Allow-Origin'] = '*'
+def index():
+
 	base_list = form_list()
 	db_on_dict = [child.to_dict() for child in base_list]
-	
+
 	return {"Family": db_on_dict}
 
 @enable_cors
