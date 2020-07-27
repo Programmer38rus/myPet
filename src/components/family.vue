@@ -160,12 +160,9 @@ export default {
       // this.$refs.addMemberFamilyModal.hide();
       this.resetMemberForm();
     },
-    onResetUpdate(event) {
-      event.preventDefault();
-      // this.updateMember.name = this.saveUpdateMember.name;
-      // this.updateMember.age = this.saveUpdateMember.age;
+    onResetUpdate() {
       this.updateMember = this.saveUpdateMember;
-      console.log();
+      console.log(this.saveUpdateMember);
     },
     changeMember(member) {
       this.updateMember = member;
@@ -173,7 +170,7 @@ export default {
     },
     onUpdateMember(event) {
       event.preventDefault();
-      // console.log(this.saveUpdateMember);
+      console.log(event);
     },
     resetMemberForm() {
       this.addFamilyMember.name = '';
