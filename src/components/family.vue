@@ -27,8 +27,7 @@
             <td>{{member.age}}</td>
             <td>
               <div class="btn-group">
-                кнопка запускает функции которая фиксирует две переменных
-                1.
+<!--                кнопка запускает функции которая фиксирует две переменных-->
                 <button class="btn btn-primary"
                         @click="fixChangeMember(member)"
                         v-b-modal.change-member-modal>Change</button>
