@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Список членов семьи</h1>
+    <h1>MY FAMILY</h1>
 
     <!-- таблица отображающая таблицу femily -->
     <b-button type="button"
@@ -27,8 +27,10 @@
             <td>{{member.age}}</td>
             <td>
               <div class="btn-group">
+                кнопка запускает функции которая фиксирует две переменных
+                1.
                 <button class="btn btn-primary"
-                        @click="changeMember(member)"
+                        @click="fixChangeMember(member)"
                         v-b-modal.change-member-modal>Change</button>
                 <button class="btn btn-outline-danger">Delete</button>
               </div>
@@ -66,6 +68,7 @@
       <b-button-group id="add-member-btn"
         align-right d-block>
         <b-button type="submit" variant="primary">Добавить</b-button>
+
         <b-button type="reset" variant="danger">Сброс</b-button>
       </b-button-group>
       </b-form>
@@ -77,20 +80,20 @@
       title="Изменить члена семьи"
       hide-footer>
       <b-form @submit="onUpdateMember"
-        @reset="onResetUpdate"
+        @reset="onResetChange"
         class="w-100">
         <b-form-group id="form-member-update-group"
           label="Измените данные"
           label-for="form-member-update-name-input">
           <b-form-input id="form-member-update-name-input"
           type="text"
-          v-model="updateMember.name"
+          v-model="changeMember.name"
           required
           placeholder="Имя">
           </b-form-input>
           <b-form-input id="form-member-update-age-input"
                         type="text"
-                        v-model="updateMember.age"
+                        v-model="changeMember.age"
                         required
                         placeholder="Возраст">
           </b-form-input>
@@ -109,8 +112,8 @@
 <script>
 import axios from 'axios';
 
-const dataURL = 'http://127.0.0.1:8081/';
-const postURL = 'http://127.0.0.1:8081/add/';
+const dataURL = 'http://localhost:8081/';
+const postURL = 'http://localhost:8081/add/';
 
 export default {
   name: 'Family',
@@ -121,12 +124,12 @@ export default {
         name: '',
         age: '',
       },
-      updateMember: {
+      changeMember: {
         id: 0,
         name: '',
         age: '',
       },
-      saveUpdateMember: {
+      saveChangeMember: {
         id: 0,
         name: '',
         age: '',
@@ -160,13 +163,13 @@ export default {
       // this.$refs.addMemberFamilyModal.hide();
       this.resetMemberForm();
     },
-    onResetUpdate() {
-      this.updateMember = this.saveUpdateMember;
-      console.log(this.saveUpdateMember);
+    onResetChange() {
+      this.changeMember = this.saveChangeMember;
+      console.log(this.saveChangeMember);
     },
-    changeMember(member) {
-      this.updateMember = member;
-      this.saveUpdateMember = member;
+    fixChangeMember(member) {
+      this.changeMember = member;
+      this.saveChangeMember = member;
     },
     onUpdateMember(event) {
       event.preventDefault();
