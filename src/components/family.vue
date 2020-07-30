@@ -178,8 +178,12 @@ export default {
         name: this.changeMember.name,
         age: this.changeMember.age,
       };
-      console.log(requestData);
-
+      const member = dataURL + requestData.id;
+      axios.put(member, requestData)
+        .then(() => {
+          this.getFamily();
+        });
+      console.log(member);
     },
     resetMemberForm() {
       this.addFamilyMember.name = '';

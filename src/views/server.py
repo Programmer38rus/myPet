@@ -23,12 +23,13 @@ def add():
 	return "OK - добавлен член семьи"
 
 @enable_cors
-@app.route('/api/family/<uid:int>', method=['GET', 'PUT', 'DELETE'])
+@app.route('/<uid:int>', method=['GET', 'PUT', 'DELETE'])
 def change_and_delete(uid):
 	if bottle.request.method == "GET":
 		finded = find_one_member(uid)
 		return finded
-
+	elif bottle.request.method == "PUT":
+		pass
 app.install(CorsPlugin(origins=['http://localhost:8081']))
 
 if __name__ == "__main__":
