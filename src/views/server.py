@@ -1,7 +1,7 @@
 import bottle
 from truckpad.bottle.cors import CorsPlugin, enable_cors
 
-from add import form_list, db_add, find_one_member
+from add import form_list, db_add, find_one_member, change_member
 app = bottle.Bottle()
 
 @enable_cors
@@ -29,7 +29,7 @@ def change_and_delete(uid):
 		finded = find_one_member(uid)
 		return finded
 	elif bottle.request.method == "PUT":
-		pass
+		change_member(uid)
 app.install(CorsPlugin(origins=['http://localhost:8081']))
 
 if __name__ == "__main__":

@@ -5,59 +5,63 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
+
 class Family(Base):
+    """
+    Describe base
+    """
 
-	"""
-	Describe base
-	"""
+    __tablename__ = "Family"
 
-	__tablename__ = "Family"
+    id = sa.Column(sa.INTEGER, primary_key=True)
+    name = sa.Column(sa.TEXT)
+    age = sa.Column(sa.INTEGER)
 
-	id = sa.Column(sa.INTEGER, primary_key=True)
-	name = sa.Column(sa.TEXT)
-	age = sa.Column(sa.INTEGER)
-
-	def to_dict(self):
-		return {
-			"id": self.id,
-			"name": self.name,
-			"age": self.age,
-		}
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+        }
 
 
 engine = sa.create_engine(data)
 Session = sessionmaker(engine)
 session = Session()
 
+
 # add = Family(name="Vyacheslav", age=32)
 
 def db_add(json):
+    add = Family(name=json['name'], age=int(json['age']))
+    session.add(add)
+    session.commit()
 
-	add = Family(name=json['name'], age=int(json['age']))
-	session.add(add)
-	session.commit()
 
 def form_list():
+    base_list = session.query(Family).all()
+    return base_list
 
-	base_list = session.query(Family).all()
-	return base_list
 
 def find_one_member(uid):
-	member = session.query(Family).filter(Family.id == uid).one()
-	# dict = [key.to_dict() for key in member]
-	dict = member.to_dict()
-	if dict:
-		return dict
-	else:
-			return 'Request is empty'
+    member = session.query(Family).filter(Family.id == uid)
 
-def change_member(uid):
-	member = session.query(Family).filter(Family.id == uid).one()
-	print(member)
-
-change_member(1k)
+    for i in member:
+        dict = i.to_dict()
+        if dict is not None:
+            return dict
+        else:
+            return member
 
 
+def change_member(uid, json):
+    member = session.query(Family).filter(Family.id == uid).one()
+    # member(name=json['name'], age=hs=json['age']))
+    member.name = json['name']
+    member.age = json['age']
+    session.commit()
 
+
+# change_member(1)
 
 # db_inject(add)
