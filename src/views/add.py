@@ -38,17 +38,26 @@ def db_add(json):
 	session.commit()
 
 def form_list():
+
 	base_list = session.query(Family).all()
 	return base_list
 
 def find_one_member(uid):
-	member = session.query(Family).filter(Family.id == uid)
+	member = session.query(Family).filter(Family.id == uid).one()
 	# dict = [key.to_dict() for key in member]
-	for i in member:
-		dict = i.to_dict()
-		if dict:
-			return dict
-		else:
+	dict = member.to_dict()
+	if dict:
+		return dict
+	else:
 			return 'Request is empty'
+
+def change_member(uid):
+	member = session.query(Family).filter(Family.id == uid).one()
+	print(member)
+
+change_member(1k)
+
+
+
 
 # db_inject(add)

@@ -101,7 +101,6 @@
           <b-button type="submit" variant="primary">Изменить</b-button>
           <b-button type="reset" variant="danger">Сброс</b-button>
         </b-button-group>
-
       </b-form>
 
     </b-modal>
