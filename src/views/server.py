@@ -1,7 +1,7 @@
 import bottle
 from truckpad.bottle.cors import CorsPlugin, enable_cors
 
-from add import form_list, db_add
+from add import form_list, db_add, find_one_member
 app = bottle.Bottle()
 
 @enable_cors
@@ -19,6 +19,15 @@ def add():
 
 	json = bottle.request.json
 	db_add(json)
+
+	return "OK - добавлен член семьи"
+
+@enable_cors
+@app.route('/api/family/<uid:int>', method=['GET', 'PUT', 'DELETE'])
+def change_and_delete(uid):
+	if bottle.request.method == "GET":
+		finded = find_one_member(uid)
+		return finded
 
 app.install(CorsPlugin(origins=['http://localhost:8081']))
 

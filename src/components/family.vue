@@ -172,7 +172,14 @@ export default {
     },
     onUpdateMember(event) {
       event.preventDefault();
-      console.log(event);
+      this.$refs.changeMemberModal.hide();
+      const requestData = {
+        id: this.changeMember.id,
+        name: this.changeMember.name,
+        age: this.changeMember.age,
+      };
+      console.log(requestData);
+
     },
     resetMemberForm() {
       this.addFamilyMember.name = '';

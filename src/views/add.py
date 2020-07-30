@@ -41,4 +41,14 @@ def form_list():
 	base_list = session.query(Family).all()
 	return base_list
 
+def find_one_member(uid):
+	member = session.query(Family).filter(Family.id == uid)
+	# dict = [key.to_dict() for key in member]
+	for i in member:
+		dict = i.to_dict()
+		if dict:
+			return dict
+		else:
+			return 'Request is empty'
+
 # db_inject(add)
