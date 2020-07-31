@@ -151,7 +151,7 @@ export default {
       axios.get(dataURL)
         .then((response) => {
           this.family = response.data.Family;
-          console.table(this.family);
+          // console.table(this.family);
         });
     },
     onSubmit(event) {
@@ -176,7 +176,7 @@ export default {
     },
     onResetChange() {
       this.changeMember = this.saveChangeMember;
-      console.log(this.saveChangeMember);
+      // console.log(this.saveChangeMember);
     },
     fixChangeMember(member) {
       this.changeMember = member;
@@ -216,7 +216,7 @@ export default {
     confirmation: Confirmation,
   },
   created() {
-    console.log('we is created place');
+    // console.log('we is created place');
     this.getFamily();
   },
 };
