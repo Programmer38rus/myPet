@@ -2,6 +2,14 @@
   <div class="container">
     <h1>MY FAMILY</h1>
 
+<!--    Конфирматион-->
+    <confirmation
+      :message="confirmationMessage"
+      v-if='showConfirmation'>
+    </confirmation>
+
+<!--    <confirmation>slkdfj</confirmation>-->
+
     <!-- таблица отображающая таблицу femily -->
     <b-button type="button"
       id="addMemberBtn"
@@ -31,7 +39,8 @@
                 <button class="btn btn-primary"
                         @click="fixChangeMember(member)"
                         v-b-modal.change-member-modal>Change</button>
-                <button class="btn btn-outline-danger">Delete</button>
+                <button class="btn btn-outline-danger"
+                        @click="deleteMember(member)">Delete</button>
               </div>
             </td>
         </tr>
@@ -109,6 +118,7 @@
 
 <script>
 import axios from 'axios';
+import Confirmation from './Confirmation.vue';
 
 const dataURL = 'http://localhost:8081/';
 const postURL = 'http://localhost:8081/add/';
@@ -131,8 +141,9 @@ export default {
         id: 0,
         name: '',
         age: '',
-
       },
+      confirmationMessage: '',
+      showConfirmation: false,
     };
   },
   methods: {
@@ -154,6 +165,8 @@ export default {
         .then(() => {
           this.getFamily();
           this.resetMemberForm();
+          this.confirmationMessage = `Вы добавили "${requestData.name}"`;
+          this.showConfirmation = true;
         });
     },
     onReset(event) {
@@ -177,17 +190,30 @@ export default {
         name: this.changeMember.name,
         age: this.changeMember.age,
       };
-      const member = dataURL + requestData.id;
-      axios.put(member, requestData)
+      const memberURL = dataURL + requestData.id;
+      axios.put(memberURL, requestData)
         .then(() => {
           this.getFamily();
+          this.confirmationMessage = `Вы изменили члена семьи по id - "${requestData.id}"`;
+          this.showConfirmation = true;
         });
-      console.log(member);
+    },
+    deleteMember(member) {
+      const memberURL = dataURL + member.id;
+      axios.delete(memberURL)
+        .then(() => {
+          this.getFamily();
+          this.confirmationMessage = `Вы удалили члена семьи "${member.name}"`;
+          this.showConfirmation = true;
+        });
     },
     resetMemberForm() {
       this.addFamilyMember.name = '';
       this.addFamilyMember.age = '';
     },
+  },
+  components: {
+    confirmation: Confirmation,
   },
   created() {
     console.log('we is created place');

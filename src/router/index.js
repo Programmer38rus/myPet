@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 import Family from '../components/family.vue';
 
 Vue.use(VueRouter);
@@ -8,8 +7,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Family',
+    component: Family,
   },
   {
     path: '/family',

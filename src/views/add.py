@@ -36,15 +36,18 @@ def db_add(json):
     add = Family(name=json['name'], age=int(json['age']))
     session.add(add)
     session.commit()
-
+    session.close()
 
 def form_list():
     base_list = session.query(Family).all()
+    session.close()
     return base_list
 
 
 def find_one_member(uid):
     member = session.query(Family).filter(Family.id == uid)
+
+    session.close()
 
     for i in member:
         dict = i.to_dict()
@@ -60,6 +63,15 @@ def change_member(uid, json):
     member.name = json['name']
     member.age = json['age']
     session.commit()
+    session.close()
+
+def delete_member(uid):
+    member = session.query(Family).filter(Family.id == uid).one()
+
+    session.delete(member)
+    session.commit()
+    session.close()
+
 
 
 # change_member(1)
